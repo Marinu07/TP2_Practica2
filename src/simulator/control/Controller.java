@@ -53,22 +53,24 @@ public class Controller implements Observable<TrafficSimObserver>{
 	}
 	
 	public void run(int n)  throws IncorrectArgumentException , IOException {
-		try {
-			String b= "{ \"states\": [";
-			for(int i = 0; i < n; i++) {
-				sim.advance();
-				b += sim.report().toString(3);
-				if(i<n-1) {
-					b+=",";
+		if(in!=null) {
+			try {
+				String b= "{ \"states\": [";
+				for(int i = 0; i < n; i++) {
+					sim.advance();
+					b += sim.report().toString(3);
+					if(i<n-1) {
+						b+=",";
+					}
 				}
+				b+="] }";
+				if(out!=null) {
+					out.write(b.getBytes());
+				}
+			}catch (IncorrectArgumentException | IOException ex){
+				throw ex;
+				
 			}
-			b+="] }";
-			if(out!=null) {
-				out.write(b.getBytes());
-			}
-		}catch (IncorrectArgumentException | IOException ex){
-			throw ex;
-			
 		}
 		
 	}

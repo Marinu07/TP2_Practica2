@@ -28,7 +28,9 @@ public abstract class MyDialogo extends JDialog implements ActionListener {
 		setTitle(title);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setLocation(300, 200);
-		this.setPreferredSize(new Dimension (450,150));
+		this.setMaximumSize(new Dimension (450,150));
+		this.setMinimumSize(new Dimension (450,150));
+		this.setResizable(false);
 	}
 
 	protected void initGUI() {

@@ -16,6 +16,7 @@ import javax.swing.ListSelectionModel;
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.NewSetContClassEvent;
+import simulator.model.Vehicle;
 
 public class ChangeC02ClassDialog extends MyDialogo{
 	
@@ -26,11 +27,15 @@ public class ChangeC02ClassDialog extends MyDialogo{
 	private JList<String> vegicbox;
 	private JList <Integer> ceodos;
 	private JList<Integer> ticks;
+	private List<Vehicle> _vehiculos;
+	private int _time;
 	private Controller c;
 	
-	public ChangeC02ClassDialog(Controller c) {
+	public ChangeC02ClassDialog(Controller c,List<Vehicle> vehiculos, int time) {
 		super("Change CO2 Class","Schedule an event to change the CO2 class of a vehicle after a given number of simulation thicks from now.");
 		this.c= c;
+		this._vehiculos= vehiculos;
+		this._time= time;
 		initGUI();
 	}
 	
@@ -40,9 +45,9 @@ public class ChangeC02ClassDialog extends MyDialogo{
 		List<Pair<String, Integer>> cs = new ArrayList <>();
 		int[] indices = vegicbox.getSelectedIndices();
 		for(int i=0; i<indices.length;i++) {
-			cs.add(new Pair<String, Integer>( this.c.getVehicles().get(indices[i]).toString(),(int)ceodos.getSelectedIndex()));
+			cs.add(new Pair<String, Integer>( this._vehiculos.get(indices[i]).toString(),(int)ceodos.getSelectedIndex()));
 		}
-		NewSetContClassEvent contEvent = new NewSetContClassEvent(c.getTime()+(int)(ticks.getSelectedValue()),cs);
+		NewSetContClassEvent contEvent = new NewSetContClassEvent(_time+(int)(ticks.getSelectedValue()),cs);
  		c.addEvent(contEvent);
  		setVisible(false);
 		
@@ -63,7 +68,7 @@ public class ChangeC02ClassDialog extends MyDialogo{
 		JPanel panelSelecion = new JPanel(new FlowLayout());
 		panelSelecion.setBackground(getColor(2));
 		JLabel vehic= new JLabel("vehicle:"); 
-		vegicbox = new JList<String> ( this.c.getVehicles().toArray(new String[0]));
+		vegicbox = new JList<String> ( this._vehiculos.toArray(new String[0]));
 		vegicbox.setVisibleRowCount(1);
 		vegicbox.setFixedCellHeight(20);
 		vegicbox.setFixedCellWidth(60);

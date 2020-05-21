@@ -53,8 +53,9 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 	private JFileChooser fc;//se pone aqui para que se guarde la ultima posicion
 	private Boolean _stopped;
 	private static final Color _BLUE = new Color(0, 153, 153);
-	private List<Road> carreteras;//prueba
-	private List<Vehicle> vehiculos;
+	private List<Road> _carreteras;//prueba
+	private List<Vehicle> _vehiculos;
+	private int _time;
 	
 	public ControlPanel(Controller _ctrl) {
 		this.c = _ctrl;
@@ -123,7 +124,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 		_changeCO2Button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new ChangeC02ClassDialog(c);
+				co2();
 				
 			}
 		});
@@ -132,7 +133,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 		_changeWeatherButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new ChangeWeatherDialog(c);
+				weth();
 			}
 		});
 		
@@ -251,7 +252,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 
 
 
-	private void run() {
+	public void run() {
 		try {
 			int steps = (Integer)_stepsField.getValue();
 			if (steps < 0) throw new IllegalArgumentException("Steps and delay should be greater than 0");
@@ -310,8 +311,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		this._time= time;
 	}
 
 
@@ -338,8 +338,8 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		this._carreteras= map.getRoads();
+		this._vehiculos= map.getVehicle();
 	}
 
 
@@ -350,58 +350,15 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 	}
 
 
-	public JMenuBar getMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
-/*
-		JMenuItem open =new JMenuItem("open");
-		open.addActionListener(this);
-		open.setActionCommand("open");
-		open.setForeground(_BLUE);
+
+	public void co2() {
+		new ChangeC02ClassDialog(c,_vehiculos,_time);
 		
-		JMenuItem co2 =new JMenuItem("co2");
-		co2.addActionListener(this);
-		co2.setActionCommand("co2");
-		co2.setForeground(_BLUE);
-		
-		JMenuItem weather =new JMenuItem("weather");
-		weather.addActionListener(this);
-		weather.setActionCommand("weather");
-		weather.setForeground(_BLUE);
-		
-		JMenuItem restart =new JMenuItem("restart");
-		restart.addActionListener(this);
-		restart.setActionCommand("restart");
-		restart.setForeground(_BLUE);
-		
-		JMenuItem run =new JMenuItem("run");
-		run.addActionListener(this);
-		run.setActionCommand("run");
-		run.setForeground(_BLUE);
-		
-		JMenuItem stop =new JMenuItem("stop");
-		stop.addActionListener(this);
-		stop.setActionCommand("stop");
-		stop.setForeground(_BLUE);
-		
-		JMenuItem exit =new JMenuItem("exit");
-		exit.addActionListener(this);
-		exit.setActionCommand("exit");
-		exit.setForeground(_BLUE);
-		
-		
-		
-		
-		
-		
-		
-		menuBar.add(open);
-		menuBar.add(co2);
-		menuBar.add(weather);
-		menuBar.add(restart);
-		menuBar.add(run);
-		menuBar.add(stop);
-		menuBar.add(exit);*/
-		return menuBar;
+	}
+
+
+	public void weth() {
+		new ChangeWeatherDialog(c);
 	}
 	
 	
