@@ -53,7 +53,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 	private JFileChooser fc;//se pone aqui para que se guarde la ultima posicion
 	private Boolean _stopped;
 	private static final Color _BLUE = new Color(0, 153, 153);
-	private List<Road> carreteras;//todo
+	private List<Road> carreteras;//prueba
 	private List<Vehicle> vehiculos;
 	
 	public ControlPanel(Controller _ctrl) {
