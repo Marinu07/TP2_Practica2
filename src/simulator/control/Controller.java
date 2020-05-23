@@ -95,15 +95,8 @@ public class Controller implements Observable<TrafficSimObserver>{
 	public void addEvent(Event e) {
 		sim.addEvent(e);
 	}
-
-	public List<String>  getVehicles() {
-		return this.sim.getVehicles();
-	}
+	
 	public int getTime() {
 		return this.sim.getTime();
-	}
-
-	public List<String> getRoads() {
-		return this.sim.getRoads();
 	}
 }
