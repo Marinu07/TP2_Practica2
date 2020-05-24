@@ -9,13 +9,16 @@ import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 import simulator.control.Controller;
 import simulator.misc.Pair;
+import simulator.model.Road;
 import simulator.model.SetWeatherEvent;
+import simulator.model.Vehicle;
 import simulator.model.Weather;
 
 public class ChangeWeatherDialog extends MyDialogo {
@@ -27,11 +30,16 @@ public class ChangeWeatherDialog extends MyDialogo {
 	private JList <String> roadlist;
 	private JList <Weather> weather;
 	private JList<Integer> ticks;
+	private List<String> _carreteras;
 	private Controller c;
 	
-	public ChangeWeatherDialog(Controller c) {
+	public ChangeWeatherDialog(Controller c, List<Road> roads) {
 		super("Change Road Weather","Schedule an event to change the weather of a road after a given number of simulation ticks from now");
 		this.c= c;
+		this._carreteras= new ArrayList<String>();
+		for(Road ro :roads) {
+			_carreteras.add(ro.getId());
+		}
 		initGUI();
 	}
 
@@ -89,14 +97,19 @@ public class ChangeWeatherDialog extends MyDialogo {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		List<Pair<String, Weather>> cs = new ArrayList <>();
-		int[] indices = roadlist.getSelectedIndices();
-		for(int i=0; i<indices.length;i++) {
-		cs.add(new Pair<String, Weather>(this.c.getRoads().get(indices[i]),(Weather) weather.getSelectedValue()));
+		if(!roadlist.isSelectionEmpty()&&!weather.isSelectionEmpty()&&!ticks.isSelectionEmpty()) {
+			List<Pair<String, Weather>> cs = new ArrayList <>();
+			int[] indices = roadlist.getSelectedIndices();
+			for(int i=0; i<indices.length;i++) {
+			cs.add(new Pair<String, Weather>(this._carreteras.get(indices[i]),(Weather) weather.getSelectedValue()));
+			}
+			SetWeatherEvent contEvent = new SetWeatherEvent(c.getTime()+(int)ticks.getSelectedValue(),cs);
+	 		c.addEvent(contEvent);
+	 		setVisible(false);
+		}else {
+			JOptionPane.showMessageDialog(null, "Arguments not selected " , 
+					"Weather Error", JOptionPane.ERROR_MESSAGE);
 		}
-		SetWeatherEvent contEvent = new SetWeatherEvent(c.getTime()+(int)ticks.getSelectedValue(),cs);
- 		c.addEvent(contEvent);
- 		setVisible(false);
 	}
 
 	@Override
@@ -104,7 +117,7 @@ public class ChangeWeatherDialog extends MyDialogo {
 		JPanel panelSelecion = new JPanel(new FlowLayout());
 		panelSelecion.setBackground(getColor(2));
 		JLabel road= new JLabel("Road:"); 
-		roadlist = new JList<String> (( this.c.getRoads()).toArray(new String[0]));
+		roadlist = new JList<String> (( this._carreteras).toArray(new String[0]));
 		roadlist.setVisibleRowCount(1);
 		roadlist.setFixedCellHeight(20);
 		roadlist.setFixedCellWidth(60);

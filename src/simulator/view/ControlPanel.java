@@ -317,7 +317,8 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		this._carreteras= map.getRoads();
+		this._vehiculos= map.getVehicle();
 		
 	}
 
@@ -338,8 +339,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		this._carreteras= map.getRoads();
-		this._vehiculos= map.getVehicle();
+		
 	}
 
 
@@ -358,7 +358,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 
 
 	public void weth() {
-		new ChangeWeatherDialog(c);
+		new ChangeWeatherDialog(c,this._carreteras);
 	}
 	
 	

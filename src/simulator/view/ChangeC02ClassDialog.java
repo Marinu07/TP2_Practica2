@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -27,14 +28,17 @@ public class ChangeC02ClassDialog extends MyDialogo{
 	private JList<String> vegicbox;
 	private JList <Integer> ceodos;
 	private JList<Integer> ticks;
-	private List<Vehicle> _vehiculos;
+	private List<String> _vehiculos;
 	private int _time;
 	private Controller c;
 	
 	public ChangeC02ClassDialog(Controller c,List<Vehicle> vehiculos, int time) {
 		super("Change CO2 Class","Schedule an event to change the CO2 class of a vehicle after a given number of simulation thicks from now.");
 		this.c= c;
-		this._vehiculos= vehiculos;
+		this._vehiculos= new ArrayList<String>();
+		for(Vehicle veh :vehiculos) {
+			_vehiculos.add(veh.getId());
+		}
 		this._time= time;
 		initGUI();
 	}
@@ -42,14 +46,19 @@ public class ChangeC02ClassDialog extends MyDialogo{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		List<Pair<String, Integer>> cs = new ArrayList <>();
-		int[] indices = vegicbox.getSelectedIndices();
-		for(int i=0; i<indices.length;i++) {
-			cs.add(new Pair<String, Integer>( this._vehiculos.get(indices[i]).toString(),(int)ceodos.getSelectedIndex()));
+		if(!vegicbox.isSelectionEmpty()&&!ceodos.isSelectionEmpty()&&!ticks.isSelectionEmpty()) {
+			List<Pair<String, Integer>> cs = new ArrayList <>();
+			int[] indices = vegicbox.getSelectedIndices();
+			for(int i=0; i<indices.length;i++) {
+				cs.add(new Pair<String, Integer>( this._vehiculos.get(indices[i]),(int)ceodos.getSelectedIndex()));
+			}
+			NewSetContClassEvent contEvent = new NewSetContClassEvent(_time+(int)(ticks.getSelectedValue()),cs);
+	 		c.addEvent(contEvent);
+	 		setVisible(false);
+		}else {
+			JOptionPane.showMessageDialog(null, "Arguments not selected " , 
+					"co2 Error", JOptionPane.ERROR_MESSAGE);
 		}
-		NewSetContClassEvent contEvent = new NewSetContClassEvent(_time+(int)(ticks.getSelectedValue()),cs);
- 		c.addEvent(contEvent);
- 		setVisible(false);
 		
 	}
 
