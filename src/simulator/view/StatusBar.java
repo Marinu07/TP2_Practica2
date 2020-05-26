@@ -17,17 +17,15 @@ public class StatusBar extends  JToolBar implements TrafficSimObserver{
 private static final long serialVersionUID = 1L;
 private JLabel _time;
 private JLabel _news;
-private	Controller _ctrl;
 
 	public StatusBar(Controller _ctrl) {
-		this._ctrl=_ctrl;
 		_ctrl.addObserver(this);
 		initGui();
 	}
 
 	private void initGui() {
 		setLayout(new FlowLayout());
-		_time= new JLabel("Time: "+String.valueOf( _ctrl.getTime())+"         ");
+		_time= new JLabel("Time: 0 ");
 		_time.setForeground(new Color(0, 153, 153));
 		this.add(_time);
 		_news= new JLabel("Simulation started");

@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,7 +95,4 @@ public class Controller implements Observable<TrafficSimObserver>{
 		sim.addEvent(e);
 	}
 	
-	public int getTime() {
-		return this.sim.getTime();
-	}
 }

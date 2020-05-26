@@ -1,6 +1,5 @@
 package simulator.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +14,6 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -52,7 +49,6 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 	private JSpinner _stepsField;
 	private JFileChooser fc;//se pone aqui para que se guarde la ultima posicion
 	private Boolean _stopped;
-	private static final Color _BLUE = new Color(0, 153, 153);
 	private List<Road> _carreteras;//prueba
 	private List<Vehicle> _vehiculos;
 	private int _time;
@@ -358,7 +354,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 
 
 	public void weth() {
-		new ChangeWeatherDialog(c,this._carreteras);
+		new ChangeWeatherDialog(c,this._carreteras,this._time);
 	}
 	
 	
