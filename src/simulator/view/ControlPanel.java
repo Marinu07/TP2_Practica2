@@ -26,10 +26,9 @@ import simulator.control.Controller;
 
 
 import simulator.model.Event;
-import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
-import simulator.model.Vehicle;
+
 
 
 public class ControlPanel extends JToolBar implements  TrafficSimObserver{
@@ -49,8 +48,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 	private JSpinner _stepsField;
 	private JFileChooser fc;//se pone aqui para que se guarde la ultima posicion
 	private Boolean _stopped;
-	private List<Road> _carreteras;//prueba
-	private List<Vehicle> _vehiculos;
+	private RoadMap _map;
 	private int _time;
 	
 	public ControlPanel(Controller _ctrl) {
@@ -313,9 +311,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		this._carreteras= map.getRoads();
-		this._vehiculos= map.getVehicle();
-		
+		_map = map;		
 	}
 
 
@@ -348,13 +344,13 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 
 
 	public void co2() {
-		new ChangeC02ClassDialog(c,_vehiculos,_time);
+		new ChangeC02ClassDialog(c,_map.getVehicle(),_time);
 		
 	}
 
 
 	public void weth() {
-		new ChangeWeatherDialog(c,this._carreteras,this._time);
+		new ChangeWeatherDialog(c,_map.getRoads(),this._time);
 	}
 	
 	

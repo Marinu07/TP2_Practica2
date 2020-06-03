@@ -18,6 +18,7 @@ public class ChangeC02ClassDialog extends MyDialogo<Integer>{
 	public ChangeC02ClassDialog(Controller c,List<Vehicle> vehiculos, int time) {
 		super("Change CO2 Class","Schedule an event to change the CO2 class of a vehicle after a given number of simulation thicks from now.",c,"CO2 Class:","Ticks:");
 		 List<String> veh= new ArrayList<String>();
+		 
 		for(Vehicle vehi :vehiculos) {
 			veh.add(vehi.getId());
 		}
