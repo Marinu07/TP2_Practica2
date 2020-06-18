@@ -353,5 +353,9 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 		new ChangeWeatherDialog(c,_map.getRoads(),this._time);
 	}
 	
+	public void stra() {
+		new ChangeStrategyDialog(c,_map.getJunctions(),this._time);
+	}
+	
 	
 }

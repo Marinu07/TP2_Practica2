@@ -134,6 +134,18 @@ public class MainWindow extends JFrame{
 		});
 		weather.setForeground(_BLUE);
 		
+		JMenuItem strategy =new JMenuItem("strategy");
+		strategy.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				conpanel.stra();
+				
+			}
+			
+		});
+		weather.setForeground(_BLUE);
+		
 		JMenuItem restart =new JMenuItem("restart");
 		restart.addActionListener(new ActionListener() {
 

@@ -170,6 +170,10 @@ public class Junction extends SimulatedObject {
 	public int getY() {
 		return yCoor;
 	}
+	
+	public String getId() {
+		return _id;
+	}
 
 	public Object getGreenLigh() {
 		String resul="NONE";
