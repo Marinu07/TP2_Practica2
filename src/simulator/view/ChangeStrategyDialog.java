@@ -7,8 +7,11 @@ import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.Event;
 import simulator.model.Junction;
+import simulator.model.LightSwitchingStrategy;
+import simulator.model.SetStrategyEvent;
 
-public class ChangeStrategyDialog extends MyDialogo<String>{
+public class ChangeStrategyDialog extends MyDialogo<LightSwitchingStrategy>{
+	private static final long serialVersionUID = 1L;
 	int _time;
 
 	public ChangeStrategyDialog(Controller c, List<Junction> junctions, int time) {
@@ -18,15 +21,15 @@ public class ChangeStrategyDialog extends MyDialogo<String>{
 		for(Junction junci : junctions) {
 			junc.add(junci.getId());
 		}
-		String [] lights = {"MostCrowdedStrateg","RoundaboutStrategy","RoundRobinStrategy"};
+		//TODO: habrá que poner algo aqui abajo xd
+		LightSwitchingStrategy[] lights = {RoundaboutStrategy,RoundRobinStrategy,MostCrowdedStrategy} ;
 		this._time= time;
 		initGUI(junc,lights);
 	}
 
 	@Override
-	protected Event createEvent(int i, List<Pair<String, String>> cs) {
-	
-		return null;
+	protected Event createEvent(int i, List<Pair<String, LightSwitchingStrategy>> cs) {
+		return new SetStrategyEvent(_time+i,cs);
 	}
 
 }

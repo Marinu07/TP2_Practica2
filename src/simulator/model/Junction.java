@@ -183,5 +183,12 @@ public class Junction extends SimulatedObject {
 		return resul;
 	}
 
+	public void setStrategy(LightSwitchingStrategy second) {
+		lightStrategy = second;
+		
+	}
+
+
+
 	
 }
