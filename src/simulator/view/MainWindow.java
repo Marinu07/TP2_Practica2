@@ -77,6 +77,11 @@ public class MainWindow extends JFrame{
 		JunctionsView.setToolTipText("All junctions and their info");
 		tablesPanel.add(JunctionsView);
 		
+		JPanel LightsView= createViewPanel(new JTable(new LightsTableModel(_ctrl)),"Lights");
+		LightsView.setPreferredSize(new Dimension(500,200));
+		JunctionsView.setToolTipText("All lights ");
+		tablesPanel.add(LightsView);
+		
 		//maps
 		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
 		mapView.setPreferredSize(new Dimension(500, 400));
@@ -139,8 +144,7 @@ public class MainWindow extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				conpanel.stra();
-				
+				conpanel.stra();			
 			}
 			
 		});
@@ -212,6 +216,7 @@ public class MainWindow extends JFrame{
 		menuBar1.add(open);
 		menuBar1.add(co2);
 		menuBar1.add(weather);
+		menuBar1.add(strategy);
 		menuBar1.add(restart);
 		menuBar1.add(run);
 		menuBar1.add(stop);

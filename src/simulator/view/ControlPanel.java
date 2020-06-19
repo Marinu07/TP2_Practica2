@@ -38,6 +38,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 	private static final String ICONS_DIR = "resources/icons/";
 	private static final int SEPARATOR_PADDING = 0;
 	private static final Number DEFAULT_STEPS = 10;
+	private JButton _changeStrategyButton;
 	private JButton _exitButton;
 	private JButton _openButton;
 	private JButton _runButton;
@@ -129,6 +130,16 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 			public void actionPerformed(ActionEvent e) {
 				weth();
 			}
+		});
+		
+		add(_changeStrategyButton = createButton("weather.png","Change strategy"));
+		_changeStrategyButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				stra();
+				
+			}
+			
 		});
 		
 		add(createSeparator());
@@ -271,6 +282,7 @@ public class ControlPanel extends JToolBar implements  TrafficSimObserver{
 		_stepsField.setEnabled(enabled);
 		_changeWeatherButton.setEnabled(enabled);
 		_changeCO2Button.setEnabled(enabled);
+		_changeStrategyButton.setEnabled(enabled);
 		
 	}
 	private void run_sim(int n) {

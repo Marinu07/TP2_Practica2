@@ -22,7 +22,7 @@ public class ChangeStrategyDialog extends MyDialogo<LightSwitchingStrategy>{
 			junc.add(junci.getId());
 		}
 		//TODO: habrá que poner algo aqui abajo xd
-		LightSwitchingStrategy[] lights = {RoundaboutStrategy,RoundRobinStrategy,MostCrowdedStrategy} ;
+		LightSwitchingStrategy[] lights = {} ;
 		this._time= time;
 		initGUI(junc,lights);
 	}
