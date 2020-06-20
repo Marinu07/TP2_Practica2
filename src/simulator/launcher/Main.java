@@ -30,7 +30,9 @@ import simulator.factories.NewCityRoadEventBuilder;
 import simulator.factories.NewInterCityRoadEventBuilder;
 import simulator.factories.NewJunctionEventBuilder;
 import simulator.factories.NewVehicleEventBuilder;
+import simulator.factories.NewVehicleNoviceEventBuilder;
 import simulator.factories.RoundRobinStrategyBuilder;
+import simulator.factories.RoundaboutStrategyBuilder;
 import simulator.factories.SetContClassEventBuilder;
 import simulator.factories.SetWeatherEventBuilder;
 import simulator.model.DequeuingStrategy;
@@ -151,9 +153,10 @@ public class Main {
 		
 		List<Builder<Event>> ebs = new ArrayList<>();
 		ebs.add( new NewJunctionEventBuilder(lssFactory,dqsFactory) );
-		ebs.add( new NewCityRoadEventBuilder() );
+		ebs.add( new NewCityRoadEventBuilder());
 		ebs.add( new NewInterCityRoadEventBuilder() );
 		ebs.add( new NewVehicleEventBuilder() );
+		ebs.add( new NewVehicleNoviceEventBuilder());
 		ebs.add( new SetWeatherEventBuilder());
 		ebs.add( new SetContClassEventBuilder());
 		

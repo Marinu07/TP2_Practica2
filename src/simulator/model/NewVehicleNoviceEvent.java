@@ -6,19 +6,15 @@ import java.util.List;
 
 import Exceptions.IncorrectArgumentException;
 
-public class NewVehicleEvent extends Event {
-
+public class NewVehicleNoviceEvent extends NewVehicleEvent{
 	private String _id;
-	private int _maxSpeed;
-	private int _contClass;
 	private List<String> _itinerary;
-
-	public NewVehicleEvent(int time, String id, int maxSpeed, int contClass, List<String> itinerary) {
-		super(time);
-		this._id = id;
-		this._maxSpeed = maxSpeed;
-		this._contClass = contClass;
-		this._itinerary = itinerary;
+	private int maxSpeed;
+	private int contClass;
+	private int maxDistance;
+	public NewVehicleNoviceEvent(int time, String id, int maxSpeed, int contClass, List<String> itinerary, int maxDistance) {
+		super(time, id, maxSpeed, contClass, itinerary);
+		this.maxDistance = maxDistance;
 	}
 	
 	@Override
@@ -31,7 +27,7 @@ public class NewVehicleEvent extends Event {
 			itineraryJunc.add(map.juncMap.get(n));
 		}
 		
-		Vehicle vehicle = new Vehicle(_id, _maxSpeed, _contClass, itineraryJunc);
+		Vehicle vehicle = new VehicleNovice(_id, maxSpeed, contClass, itineraryJunc, maxDistance);
 		try {
 			map.addVehicle(vehicle);
 			vehicle.moveToNextRoad();
@@ -42,7 +38,8 @@ public class NewVehicleEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "New Vehicle '"+ _id + "'";
+		return "New Vehicle Novice'"+ _id + "'";
 	}
+
 
 }

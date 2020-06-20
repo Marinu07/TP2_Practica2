@@ -17,7 +17,7 @@ public class VehicleNovice extends Vehicle{
 	private int previousLocation;
 	private int currentSpeed;
 
-	protected VehicleNovice(String id, int maxSpeed, int contClass, List<Junction> itinerary)
+	protected VehicleNovice(String id, int maxSpeed, int contClass, List<Junction> itinerary, int maxDistance)
 			throws IncorrectArgumentException {
 		super(id, maxSpeed, contClass, itinerary);
 		//crear una copia para la lista
@@ -25,6 +25,7 @@ public class VehicleNovice extends Vehicle{
 			this.totalContamination=0;
 			this.distance=0;
 			this.status= VehicleStatus.PENDING;
+			this.maxDistance = maxDistance;
 		}
 		else {
 			throw new IncorrectArgumentException("Incorrect Arguments: Vehicle Constructor");
