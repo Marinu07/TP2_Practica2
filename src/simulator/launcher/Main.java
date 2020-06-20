@@ -140,6 +140,8 @@ public class Main {
 		List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
 		lsbs.add(new RoundRobinStrategyBuilder());
 		lsbs.add(new MostCrowdedStrategyBuilder());
+		lsbs.add(new RoundaboutStrategyBuilder());
+
 		Factory<LightSwitchingStrategy> lssFactory= new BuilderBasedFactory<>(lsbs);
 		
 		List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
